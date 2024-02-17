@@ -1,34 +1,32 @@
-// @ts-nocheck
+import MaskedInput from 'react-text-mask';
 import styled, { css } from "styled-components";
 import { DatepickerInputProps } from "./Datepicker.types";
 import theme from "../../styles/theme";
 
-type WrapperProps = Pick<
-  DatepickerInputProps,
-  "isDisabled" | "config" | "variant"
-> & {
-  error: boolean;
-};
 type ConfigProps = DatepickerInputProps["config"];
+type WrapperProps = {
+  disabled?: boolean;
+  $config?: ConfigProps;
+  $variant?: "light" | "dark" | "custom";
+  $error: boolean;
+};
 type ButtonWrapperProps = {
-  variant?: "light" | "dark" | "custom";
-  config?: ConfigProps;
-  isRangeNotFilled?: boolean;
+  $variant?: "light" | "dark" | "custom";
+  $config?: ConfigProps;
+  $isRangeNotFilled?: boolean;
 };
 type WeekWrapperProps = {
-  isInactive?: boolean;
-  isSelected?: boolean;
-  isToday?: boolean;
-  isInsideRange?: boolean;
-  config?: ConfigProps;
-  variant?: "light" | "dark" | "custom";
+  $isInactive?: boolean | undefined;
+  $isSelected?: boolean | undefined;
+  $isToday?: boolean | undefined;
+  $isInsideRange?: boolean | undefined;
+  $config?: ConfigProps;
+  $variant?: "light" | "dark" | "custom";
 };
 
 const datepickerModifiers = {
   variant: {
     light: (_: ConfigProps) => css`
-      background-color: ${theme.colors.gray[50]};
-
       &:focus-within {
         ${InputWrapper} {
           border-color: ${theme.colors.blue[600]};
@@ -75,8 +73,6 @@ const datepickerModifiers = {
       }
     `,
     dark: (_: ConfigProps) => css`
-      background-color: ${theme.colors.gray[900]};
-
       &:focus-within {
         ${InputWrapper} {
           border-color: ${theme.colors.blue[300]};
@@ -159,8 +155,6 @@ const datepickerModifiers = {
         config?.inputStyles || {};
 
       return css`
-        background-color: ${backgroundColor};
-
         &:focus-within {
           ${InputWrapper} {
             color: ${focusTextColor};
@@ -219,7 +213,7 @@ const datepickerModifiers = {
       `;
     },
   },
-  isDisabled: {
+  disabled: {
     light: (_: ConfigProps) => css`
       ${Input} {
         color: ${theme.colors.gray[400]};
@@ -287,9 +281,14 @@ const datepickerModifiers = {
         border-color: ${theme.colors.red[700]};
       }
 
-      ${Error}, svg {
+      ${Error} {
         color: ${theme.colors.red[700]};
         font-size: ${theme.font.sizes.small};
+
+        svg {
+          color: ${theme.colors.red[700]};
+          background-color: transparent;
+        }
       }
     `,
     dark: (_: ConfigProps) => css`
@@ -297,9 +296,14 @@ const datepickerModifiers = {
         border-color: ${theme.colors.red[400]};
       }
 
-      ${Error}, svg {
+      ${Error} {
         color: ${theme.colors.red[400]};
         font-size: ${theme.font.sizes.small};
+
+        svg {
+          color: ${theme.colors.red[400]};
+          background-color: transparent;
+        }
       }
     `,
     custom: (config: ConfigProps) => {
@@ -316,14 +320,16 @@ const datepickerModifiers = {
           border-color: ${errorBorderColor};
         }
 
-        ${Error}, svg {
+        ${Error} {
           color: ${errorTextColor};
           font-size: ${errorTextSize};
           display: ${hideError ? "none" : "flex"};
-        }
 
-        svg {
-          display: ${hideErrorIcon ? "none" : "flex"};
+          svg {
+            display: ${hideErrorIcon ? "none" : "flex"};
+            color: ${errorTextColor};
+            background-color: transparent;
+          }
         }
       `;
     },
@@ -341,7 +347,7 @@ const getInactiveDaysStyles = (config: ConfigProps, color: string) => {
 };
 
 const datepickerWeekModifiers = {
-  isInactive: {
+  inactive: {
     light: (config: ConfigProps) => {
       return getInactiveDaysStyles(config, theme.colors.gray[400]);
     },
@@ -357,7 +363,7 @@ const datepickerWeekModifiers = {
       );
     },
   },
-  isInsideRange: {
+  insideRage: {
     light: (_: ConfigProps) => css`
       background-color: ${theme.colors.blue[100]};
 
@@ -381,10 +387,12 @@ const datepickerWeekModifiers = {
       `;
     },
   },
-  isSelected: {
+  selected: {
     light: (_: ConfigProps) => css`
-      color: ${theme.colors.gray[50]} !important;
-      background-color: ${theme.colors.blue[700]};
+      & {
+        color: ${theme.colors.gray[50]} !important;
+        background-color: ${theme.colors.blue[700]};
+      }
 
       &:hover {
         background-color: ${theme.colors.blue[700]} !important;
@@ -415,7 +423,7 @@ const datepickerWeekModifiers = {
       `;
     },
   },
-  isToday: {
+  today: {
     light: (_: ConfigProps) => css`
       border: 1.5px solid ${theme.colors.blue[700]};
     `,
@@ -525,7 +533,7 @@ const buttonsModifiers = {
       `;
     },
   },
-  isRangeNotFilled: {
+  rangeNotFilled: {
     light: (_: ConfigProps) => css`
       ${ButtonConfirm} {
         background-color: ${theme.colors.gray[400]};
@@ -642,8 +650,15 @@ export const WeekContainer = styled.div`
 `;
 
 export const WeekWrapper = styled.div<WeekWrapperProps>`
-  ${({ isInactive, isSelected, isToday, isInsideRange, config, variant }) => {
-    const variantType: WeekWrapperProps["variant"] = variant || "light";
+  ${({
+    $isInactive,
+    $isToday,
+    $isInsideRange,
+    $config,
+    $variant,
+    $isSelected,
+  }) => {
+    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
 
     return css`
       height: 2.25rem;
@@ -654,18 +669,18 @@ export const WeekWrapper = styled.div<WeekWrapperProps>`
       align-items: center;
       padding: 0.25rem;
 
-      ${isInactive && datepickerWeekModifiers.isInactive[variantType](config)}
-      ${isInsideRange &&
-      datepickerWeekModifiers.isInsideRange[variantType](config)}
-      ${isSelected && datepickerWeekModifiers.isSelected[variantType](config)}
-      ${isToday && datepickerWeekModifiers.isToday[variantType](config)}
+      ${$isInactive && datepickerWeekModifiers.inactive[variantType]($config)}
+      ${$isInsideRange &&
+      datepickerWeekModifiers.insideRage[variantType]($config)}
+      ${$isToday && datepickerWeekModifiers.today[variantType]($config)}
+      ${$isSelected && datepickerWeekModifiers.selected[variantType]($config)}
     `;
   }}
 `;
 
 export const ButtonsWrapper = styled.div<ButtonWrapperProps>`
-  ${({ variant, config, isRangeNotFilled }) => {
-    const variantType: WeekWrapperProps["variant"] = variant || "light";
+  ${({ $variant, $config, $isRangeNotFilled }) => {
+    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
 
     return css`
       display: flex;
@@ -685,9 +700,9 @@ export const ButtonsWrapper = styled.div<ButtonWrapperProps>`
         border-radius: ${theme.border.radius_xlarge};
       }
 
-      ${!!variant && buttonsModifiers.variant[variant](config)}
-      ${isRangeNotFilled &&
-      buttonsModifiers.isRangeNotFilled[variantType](config)}
+      ${!!$variant && buttonsModifiers.variant[variantType]($config)}
+      ${$isRangeNotFilled &&
+      buttonsModifiers.rangeNotFilled[variantType]($config)}
     `;
   }}
 `;
@@ -731,9 +746,10 @@ export const InputWrapper = styled.div`
   gap: 0.313rem;
 `;
 
-export const Input = styled.input`
+export const Input = styled(MaskedInput)`
   outline: none;
   border: none;
+  background-color: transparent;
   width: 100%;
   height: 100%;
 
@@ -742,17 +758,20 @@ export const Input = styled.input`
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ isDisabled, variant, config, error }) => {
-    const variantType: WeekWrapperProps["variant"] = variant || "light";
+  ${({ disabled, $variant, $config, $error }) => {
+    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
 
     return css`
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
 
-      ${!!variant && datepickerModifiers.variant[variant](config)}
-      ${error && datepickerModifiers.error[variantType](config)}
-      ${isDisabled && datepickerModifiers.isDisabled[variantType](config)}
+      ${!!$variant && datepickerModifiers.variant[variantType]($config)}
+      ${$error && datepickerModifiers.error[variantType]($config)}
+      ${disabled && datepickerModifiers.disabled[variantType]($config)}
     `;
   }}
 `;
@@ -773,6 +792,7 @@ export const Month = styled.span`
 `;
 
 export const Error = styled.div`
+  width: fit-content;
   display: flex;
   align-items: center;
   gap: 0.25em;

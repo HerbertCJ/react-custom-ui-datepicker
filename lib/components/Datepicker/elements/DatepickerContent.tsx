@@ -1,8 +1,8 @@
-import { DatepickerContentProps } from '../Datepicker.types';
+import { DatepickerContentProps } from "../Datepicker.types";
 
-import { Days } from './Days';
-import { Months } from './Months';
-import { Years } from './Years';
+import { Days } from "./Days";
+import { Months } from "./Months";
+import { Years } from "./Years";
 
 export function DatepickerContent({
   viewMode,
@@ -11,7 +11,7 @@ export function DatepickerContent({
   dateValue,
   config,
   variant,
-  isRange,
+  range,
   onChangeViewMode,
   onChangeActiveDate,
   onChangeSelectedDate,
@@ -28,7 +28,7 @@ export function DatepickerContent({
           dateValue={dateValue}
           config={config}
           variant={variant}
-          isRange={isRange}
+          range={range}
           onChangeViewMode={onChangeViewMode}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
@@ -40,9 +40,9 @@ export function DatepickerContent({
       {viewMode === 2 && (
         <Years
           activeDate={activeDate}
-          // @ts-expect-error startDate will always exist if isRange is true
-          selectedDate={isRange ? selectedDate?.startDate : selectedDate}
-          isRange={isRange}
+          // @ts-expect-error startDate will always exist if range is true
+          selectedDate={range ? selectedDate?.startDate : selectedDate}
+          range={range}
           variant={variant}
           config={config}
           onChangeViewMode={onChangeViewMode}
@@ -53,9 +53,9 @@ export function DatepickerContent({
       {viewMode === 3 && (
         <Months
           activeDate={activeDate}
-          // @ts-expect-error startDate will always exist if isRange is true
-          selectedDate={isRange ? selectedDate?.startDate : selectedDate}
-          isRange={isRange}
+          // @ts-expect-error startDate will always exist if range is true
+          selectedDate={range ? selectedDate?.startDate : selectedDate}
+          range={range}
           config={config}
           variant={variant}
           onChangeViewMode={onChangeViewMode}

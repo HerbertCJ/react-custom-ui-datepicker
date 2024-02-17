@@ -8,7 +8,7 @@ export function DatepickerAction({
   selectedDate,
   config,
   variant,
-  isRange,
+  range,
   onOpen,
   onError,
   onChangeDateValue,
@@ -16,11 +16,11 @@ export function DatepickerAction({
   const { applyBtnText, cancelBtnText } = config?.calendarStyles || {};
   const dateFormat = config?.dateFormat || "MM/dd/yyyy";
 
-  const isRangeFilled =
-    isRange && isValid(selectedDate.startDate) && isValid(selectedDate.endDate);
+  const rangeFilled =
+    range && isValid(selectedDate.startDate) && isValid(selectedDate.endDate);
 
   const onConfirm = () => {
-    if (isRange && "startDate" in selectedDate && "endDate" in selectedDate) {
+    if (range && "startDate" in selectedDate && "endDate" in selectedDate) {
       const startDate = format(selectedDate.startDate, dateFormat);
       const endDate = format(selectedDate.endDate ?? "", dateFormat);
       onChangeDateValue(`${startDate} - ${endDate}`);
@@ -38,17 +38,15 @@ export function DatepickerAction({
 
   return (
     <S.ButtonsWrapper
-      variant={variant}
-      config={config}
-      isRangeNotFilled={isRange && !isRangeFilled}
+      $variant={variant}
+      $config={config}
+      $isRangeNotFilled={range && !rangeFilled}
     >
       <S.ButtonCancel onClick={() => onCancel()}>
         {cancelBtnText || "Cancel"}
       </S.ButtonCancel>
 
-      <S.ButtonConfirm
-        onClick={() => (!isRange || isRangeFilled) && onConfirm()}
-      >
+      <S.ButtonConfirm onClick={() => (!range || rangeFilled) && onConfirm()}>
         {applyBtnText || "Apply"}
       </S.ButtonConfirm>
     </S.ButtonsWrapper>

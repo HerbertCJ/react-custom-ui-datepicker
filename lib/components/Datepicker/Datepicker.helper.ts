@@ -6,97 +6,28 @@ import {
   getYear,
   startOfMonth,
   startOfWeek,
-} from 'date-fns';
+} from "date-fns";
 import {
-  af,
-  arDZ,
-  arMA,
-  arSA,
-  arTN,
-  az,
-  be,
-  bg,
-  bn,
-  bs,
-  ca,
-  cs,
-  cy,
-  da,
   de,
-  deAT,
-  el,
   enAU,
   enCA,
   enGB,
-  enIN,
-  enNZ,
   enUS,
-  enZA,
-  eo,
   es,
-  et,
-  eu,
-  faIR,
-  fi,
   fr,
-  frCA,
-  frCH,
-  gd,
-  gl,
-  gu,
-  he,
-  hi,
-  hr,
-  ht,
-  hu,
-  hy,
-  id,
-  is,
-  it,
-  ja,
-  jaHira,
-  ka,
-  kk,
-  kn,
-  ko,
-  lb,
-  lt,
-  lv,
-  mk,
-  mn,
-  ms,
-  mt,
-  nb,
-  nl,
-  nlBE,
-  nn,
   pl,
   pt,
   ptBR,
-  ro,
   ru,
-  sk,
-  sl,
-  sq,
-  sr,
-  srLatn,
-  sv,
-  ta,
-  te,
-  th,
-  tr,
-  ug,
-  uk,
-  uz,
-  vi,
-  zhCN,
-  zhTW,
-} from 'date-fns/locale';
+} from "date-fns/locale";
 
-import { Locale } from './DatepickerConfig.types';
+import { Locale } from "./DatepickerConfig.types";
 
 export class DatepickerHelper {
-  static stringToDateOrNewDate(dateString: string, dateFormat: string = 'MM/dd/yyyy') {
+  static stringToDateOrNewDate(
+    dateString: string,
+    dateFormat: string = "MM/dd/yyyy"
+  ) {
     if (dateString) {
       return formatStringIntoSingleDate(dateString, dateFormat);
     } else {
@@ -104,7 +35,10 @@ export class DatepickerHelper {
     }
   }
 
-  static stringToRangeDateOrNewDate(dateString: string, dateFormat: string = 'MM/dd/yyyy') {
+  static stringToRangeDateOrNewDate(
+    dateString: string,
+    dateFormat: string = "MM/dd/yyyy"
+  ) {
     if (dateString) {
       return formatStringIntoRangeDate(dateString, dateFormat);
     } else {
@@ -115,14 +49,48 @@ export class DatepickerHelper {
     }
   }
 
-  static getMaskValue(isRange: boolean, dateFormat?: string) {
+  static getMaskValue(range: boolean, dateFormat?: string) {
     if (dateFormat) {
-      const modifiedFormat = dateFormat.replace(/[^ -:/]/g, '9');
+      const mask = dateFormat.split("").map((char) => {
+        if (char !== " " && char !== "/" && char !== ":") {
+          return /\d/;
+        } else {
+          return char;
+        }
+      });
 
-      return isRange ? `${modifiedFormat} - ${modifiedFormat}` : modifiedFormat;
+      return mask;
     }
 
-    return isRange ? '99/99/9999 - 99/99/9999' : '99/99/9999';
+    if (range) {
+      return [
+        /\d/,
+        /\d/,
+        "/",
+        /\d/,
+        /\d/,
+        "/",
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+        " ",
+        "-",
+        " ",
+        /\d/,
+        /\d/,
+        "/",
+        /\d/,
+        /\d/,
+        "/",
+        /\d/,
+        /\d/,
+        /\d/,
+        /\d/,
+      ];
+    } else {
+      return [/\d/, /\d/, "/", /\d/, /\d/, "/", /\d/, /\d/, /\d/, /\d/];
+    }
   }
 
   static getRangeOfYears(activeDate: Date) {
@@ -146,14 +114,14 @@ export class DatepickerHelper {
 
   static checkIfDateIsValid(
     dateValue: string,
-    isRange: boolean,
+    range: boolean,
     setError: (value: boolean) => void,
-    configDateFormat?: string,
+    configDateFormat?: string
   ) {
-    const dateFormat = configDateFormat || 'MM/dd/yyyy';
+    const dateFormat = configDateFormat || "MM/dd/yyyy";
     if (dateValue) {
-      if (isRange) {
-        const [startDate, endDate] = dateValue.split(' - ');
+      if (range) {
+        const [startDate, endDate] = dateValue.split(" - ");
 
         const parsedStartDate = parse(startDate, dateFormat, new Date());
         const parsedEndDate = parse(endDate, dateFormat, new Date());
@@ -177,89 +145,17 @@ export class DatepickerHelper {
 
   static getLanguage(locale: Locale) {
     const languageImports = {
-      af: af,
-      'ar-DZ': arDZ,
-      'ar-MA': arMA,
-      'ar-SA': arSA,
-      'ar-TN': arTN,
-      az: az,
-      be: be,
-      bg: bg,
-      bn: bn,
-      bs: bs,
-      ca: ca,
-      cs: cs,
-      cy: cy,
-      da: da,
       de: de,
-      'de-AT': deAT,
-      el: el,
-      'en-AU': enAU,
-      'en-CA': enCA,
-      'en-GB': enGB,
-      'en-IN': enIN,
-      'en-NZ': enNZ,
-      'en-US': enUS,
-      'en-ZA': enZA,
-      eo: eo,
+      "en-AU": enAU,
+      "en-CA": enCA,
+      "en-GB": enGB,
+      "en-US": enUS,
       es: es,
-      et: et,
-      eu: eu,
-      'fa-IR': faIR,
-      fi: fi,
       fr: fr,
-      'fr-CA': frCA,
-      'fr-CH': frCH,
-      gd: gd,
-      gl: gl,
-      gu: gu,
-      he: he,
-      hi: hi,
-      hr: hr,
-      ht: ht,
-      hu: hu,
-      hy: hy,
-      id: id,
-      is: is,
-      it: it,
-      ja: ja,
-      'ja-Hira': jaHira,
-      ka: ka,
-      kk: kk,
-      kn: kn,
-      ko: ko,
-      lb: lb,
-      lt: lt,
-      lv: lv,
-      mk: mk,
-      mn: mn,
-      ms: ms,
-      mt: mt,
-      nb: nb,
-      nl: nl,
-      'nl-BE': nlBE,
-      nn: nn,
       pl: pl,
       pt: pt,
-      'pt-BR': ptBR,
-      ro: ro,
+      "pt-BR": ptBR,
       ru: ru,
-      sk: sk,
-      sl: sl,
-      sq: sq,
-      sr: sr,
-      'sr-Latn': srLatn,
-      sv: sv,
-      ta: ta,
-      te: te,
-      th: th,
-      tr: tr,
-      ug: ug,
-      uk: uk,
-      uz: uz,
-      vi: vi,
-      'zh-CN': zhCN,
-      'zh-TW': zhTW,
     };
 
     return languageImports[locale] || enUS;
@@ -277,7 +173,7 @@ function formatStringIntoSingleDate(dateString: string, formatString: string) {
 }
 
 function formatStringIntoRangeDate(dateString: string, dateFormat: string) {
-  const [startDate, endDate] = dateString.split(' - ');
+  const [startDate, endDate] = dateString.split(" - ");
 
   const parsedStartDate = parse(startDate, dateFormat, new Date());
   const parsedEndDate = parse(endDate, dateFormat, new Date());

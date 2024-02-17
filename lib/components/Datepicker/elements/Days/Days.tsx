@@ -12,7 +12,7 @@ export function Days({
   selectedDate,
   config,
   variant,
-  isRange,
+  range,
   onChangeActiveDate,
   onChangeDateValue,
   onChangeSelectedDate,
@@ -28,7 +28,7 @@ export function Days({
         onChangeActiveDate={onChangeActiveDate}
         onChangeViewMode={onChangeViewMode}
       />
-      {isRange ? (
+      {range ? (
         <RangeContent
           activeDate={activeDate}
           selectedDate={selectedDate}
@@ -61,7 +61,7 @@ export function Days({
           dateValue={dateValue}
           variant={variant}
           config={config}
-          isRange={isRange}
+          range={range}
           onChangeDateValue={onChangeDateValue}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}

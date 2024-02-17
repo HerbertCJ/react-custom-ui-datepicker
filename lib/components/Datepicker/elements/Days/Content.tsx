@@ -1,4 +1,5 @@
-import React from 'react';
+// @ts-nocheck
+import { Fragment } from "react";
 import {
   startOfWeek,
   format,
@@ -11,11 +12,11 @@ import {
   setHours,
   setMinutes,
   setSeconds,
-} from 'date-fns';
+} from "date-fns";
 
-import { DatepickerHelper } from '../../Datepicker.helper';
-import { DatepickerDayContentProps } from '../../Datepicker.types';
-import * as S from '../../Datepicker.styles';
+import { DatepickerHelper } from "../../Datepicker.helper";
+import { DatepickerDayContentProps } from "../../Datepicker.types";
+import * as S from "../../Datepicker.styles";
 
 export function Content({
   activeDate,
@@ -29,8 +30,8 @@ export function Content({
   onOpen,
   onError,
 }: DatepickerDayContentProps) {
-  const dateFormat = config?.dateFormat || 'MM/dd/yyyy';
-  const daysOfWeekFormat = config?.calendarFormat?.daysOfWeekFormat || 'EEEEEE';
+  const dateFormat = config?.dateFormat || "MM/dd/yyyy";
+  const daysOfWeekFormat = config?.calendarFormat?.daysOfWeekFormat || "EEEEEE";
 
   const getWeekDaysNames = () => {
     const weekStartDate = startOfWeek(activeDate);
@@ -40,7 +41,7 @@ export function Content({
       weekDays.push(
         <S.DayOfWeekNames key={day}>
           {format(addDays(weekStartDate, day), daysOfWeekFormat)}
-        </S.DayOfWeekNames>,
+        </S.DayOfWeekNames>
       );
     }
 
@@ -48,7 +49,8 @@ export function Content({
   };
 
   const getDays = () => {
-    const { firstMonthDay, lastMonthDay } = DatepickerHelper.getFirstLastDayOfMonth(activeDate);
+    const { firstMonthDay, lastMonthDay } =
+      DatepickerHelper.getFirstLastDayOfMonth(activeDate);
 
     let currentDate = firstMonthDay;
 
@@ -56,25 +58,34 @@ export function Content({
 
     while (currentDate <= lastMonthDay) {
       // @ts-expect-error will use single date
-      allWeeks.push(generateDatesForCurrentWeek(currentDate, selectedDate, activeDate));
+      allWeeks.push(
+        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
+      );
       currentDate = addDays(currentDate, 7);
     }
 
     return (
       <S.WeekContainer>
         {allWeeks.map((week, index) => (
-          <React.Fragment key={index}>{week}</React.Fragment>
+          <Fragment key={index}>{week}</Fragment>
         ))}
       </S.WeekContainer>
     );
   };
 
-  const generateDatesForCurrentWeek = (date: Date, selectedDate: Date, activeDate: Date) => {
+  const generateDatesForCurrentWeek = (
+    date: Date,
+    selectedDate: Date,
+    activeDate: Date
+  ) => {
     let currentDate = date;
     const week = [];
 
     const handleDateClick = (clickedDate: Date) => {
-      if (!config?.calendarStyles?.hideInactiveDays && !isSameMonth(clickedDate, activeDate)) {
+      if (
+        !config?.calendarStyles?.hideInactiveDays &&
+        !isSameMonth(clickedDate, activeDate)
+      ) {
         if (isBefore(clickedDate, activeDate)) {
           onChangeActiveDate(subMonths(activeDate, 1));
         } else {
@@ -85,8 +96,11 @@ export function Content({
       const currentTime = new Date();
 
       const updatedDateTime = setSeconds(
-        setMinutes(setHours(clickedDate, currentTime.getHours()), currentTime.getMinutes()),
-        currentTime.getSeconds(),
+        setMinutes(
+          setHours(clickedDate, currentTime.getHours()),
+          currentTime.getMinutes()
+        ),
+        currentTime.getSeconds()
       );
 
       onChangeSelectedDate(updatedDateTime);
@@ -104,15 +118,15 @@ export function Content({
       week.push(
         <S.WeekWrapper
           key={day}
-          config={config}
-          variant={variant}
-          isInactive={!isSameMonth(currentDate, activeDate)}
-          isSelected={isSameDay(currentDate, selectedDate)}
-          isToday={isSameDay(currentDate, new Date())}
+          $config={config}
+          $variant={variant}
+          $isInactive={!isSameMonth(currentDate, activeDate)}
+          $isToday={isSameDay(currentDate, new Date())}
+          $isSelected={isSameDay(currentDate, selectedDate)}
           onClick={() => handleDateClick(cloneDate)}
         >
-          {format(currentDate, 'd')}
-        </S.WeekWrapper>,
+          {format(currentDate, "d")}
+        </S.WeekWrapper>
       );
 
       currentDate = addDays(currentDate, 1);

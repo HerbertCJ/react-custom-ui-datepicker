@@ -9,7 +9,7 @@ export function Years({
   selectedDate,
   config,
   variant,
-  isRange,
+  range,
   onChangeViewMode,
   onChangeSelectedDate,
   onChangeActiveDate,
@@ -22,7 +22,7 @@ export function Years({
         onChangeViewMode={onChangeViewMode}
       />
       <Content
-        isRange={isRange}
+        range={range}
         config={config}
         variant={variant}
         activeDate={activeDate}

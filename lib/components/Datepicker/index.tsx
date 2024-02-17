@@ -1,5 +1,4 @@
 import { useState } from "react";
-import InputMask from "react-input-mask";
 import { setDefaultOptions } from "date-fns";
 import { IoCalendarOutline } from "react-icons/io5";
 import { BsExclamationCircle } from "react-icons/bs";
@@ -16,15 +15,15 @@ import * as S from "./Datepicker.styles";
 
 export function Datepicker({
   variant = "light",
-  isDisabled,
+  disabled,
   placeholder,
-  isRange = false,
+  range = false,
   config,
 }: DatepickerInputProps) {
-  const initialState = isRange
+  const initialState = range
     ? { startDate: new Date(), endDate: null }
     : new Date();
-  const maskValue = DatepickerHelper.getMaskValue(isRange, config?.dateFormat);
+  const maskValue = DatepickerHelper.getMaskValue(range, config?.dateFormat);
 
   const [selectedDate, setSelectedDate] = useState<Date | DateObject>(
     initialState
@@ -47,7 +46,7 @@ export function Datepicker({
 
     let parsedDate;
 
-    if (isRange) {
+    if (range) {
       parsedDate = DatepickerHelper.stringToRangeDateOrNewDate(
         dateValue,
         config?.dateFormat
@@ -67,21 +66,22 @@ export function Datepicker({
 
   return (
     <S.Wrapper
-      isDisabled={isDisabled}
-      config={config}
-      variant={variant}
-      error={error}
+      disabled={disabled}
+      $config={config}
+      $variant={variant}
+      $error={error}
     >
       <S.InputWrapper>
-        <InputMask
+        <S.Input
           mask={maskValue}
-          maskChar=""
-          disabled={isDisabled}
+          guide={false}
+          disabled={disabled}
           value={dateValue}
+          placeholder={placeholder}
           onBlur={() =>
             DatepickerHelper.checkIfDateIsValid(
               dateValue,
-              isRange,
+              range,
               setError,
               config?.dateFormat
             )
@@ -89,29 +89,18 @@ export function Datepicker({
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setDateValue(e.target.value)
           }
-        >
-          {/* @ts-expect-error external lib */}
-          {(inputProps) => (
-            <S.Input
-              type="text"
-              placeholder={placeholder}
-              disabled={isDisabled}
-              {...inputProps}
-            />
-          )}
-        </InputMask>
-
+        />
         <S.DatepickerWrapper
           onBlur={() => {
             setIsOpen(false);
             DatepickerHelper.checkIfDateIsValid(
               dateValue,
-              isRange,
+              range,
               setError,
               config?.dateFormat
             );
           }}
-          disabled={isDisabled}
+          disabled={disabled}
         >
           <IoCalendarOutline onClick={() => handleOpenCalendar()} />
           {isOpen && (
@@ -122,7 +111,7 @@ export function Datepicker({
               activeDate={activeDate}
               selectedDate={selectedDate}
               dateValue={dateValue}
-              isRange={isRange}
+              range={range}
               onChangeViewMode={setViewMode}
               onChangeActiveDate={setActiveDate}
               onChangeSelectedDate={setSelectedDate}

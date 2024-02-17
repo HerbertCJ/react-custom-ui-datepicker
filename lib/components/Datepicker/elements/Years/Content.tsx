@@ -12,7 +12,7 @@ export function Content({
   selectedDate,
   config,
   variant,
-  isRange,
+  range,
   onChangeActiveDate,
   onChangeSelectedDate,
   onChangeViewMode,
@@ -27,14 +27,14 @@ export function Content({
     years.push(
       <S.WeekWrapper
         key={year}
-        config={config}
-        variant={variant}
-        isToday={year === getYear(new Date())}
-        isSelected={year === getYear(selectedDate as Date)}
+        $config={config}
+        $variant={variant}
+        $isToday={year === getYear(new Date())}
+        $isSelected={year === getYear(selectedDate as Date)}
         onClick={() => {
           onChangeActiveDate(cloneDate);
           onChangeSelectedDate(
-            isRange ? { startDate: cloneDate, endDate: cloneDate } : cloneDate
+            range ? { startDate: cloneDate, endDate: cloneDate } : cloneDate
           );
           onChangeViewMode(ViewModeEnum.MONTHS);
         }}

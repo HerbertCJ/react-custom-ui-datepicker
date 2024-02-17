@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Fragment, useState } from "react";
 import {
   startOfWeek,
   format,
@@ -66,7 +66,7 @@ export function RangeContent({
     return (
       <S.WeekContainer>
         {allWeeks.map((week, index) => (
-          <React.Fragment key={index}>{week}</React.Fragment>
+          <Fragment key={index}>{week}</Fragment>
         ))}
       </S.WeekContainer>
     );
@@ -129,14 +129,14 @@ export function RangeContent({
       week.push(
         <S.WeekWrapper
           key={day}
-          config={config}
-          variant={variant}
-          isInactive={!isSameMonth(currentDate, activeDate)}
-          isSelected={
+          $config={config}
+          $variant={variant}
+          $isInactive={!isSameMonth(currentDate, activeDate)}
+          $isSelected={
             isSameDay(currentDate, selectedDate.startDate) ||
             isSameDay(currentDate, selectedDate.endDate)
           }
-          isInsideRange={
+          $isInsideRange={
             (!selectedDate.endDate &&
               hoveredDate !== null &&
               currentDate < hoveredDate &&
@@ -145,7 +145,7 @@ export function RangeContent({
               isBefore(currentDate, selectedDate.endDate))
           }
           onMouseOver={() => setHoveredDate(cloneDate)}
-          isToday={isSameDay(currentDate, new Date())}
+          $isToday={isSameDay(currentDate, new Date())}
           onClick={() => handleDateClick(cloneDate)}
         >
           {format(currentDate, "d")}

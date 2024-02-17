@@ -9,7 +9,7 @@ export function Months({
   selectedDate,
   config,
   variant,
-  isRange,
+  range,
   onChangeActiveDate,
   onChangeSelectedDate,
   onChangeViewMode,
@@ -22,7 +22,7 @@ export function Months({
         onChangeViewMode={onChangeViewMode}
       />
       <Content
-        isRange={isRange}
+        range={range}
         config={config}
         variant={variant}
         activeDate={activeDate}
