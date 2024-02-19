@@ -1,12 +1,26 @@
 {
-  "name": "react-lib-ui-test-55",
+  "name": "react-custom-datepicker",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.1",
+  "description": "A custom Datepicker library for React",
+  "author": "Herbert Jacby",
+  "license": "MIT",
+  "homepage": "https://github.com/react-custom-datepicker",
+  "bugs": {
+    "url": "https://github.com/react-custom-datepicker/react-custom-datepicker/issues"
+  },
   "type": "module",
   "main": "dist/main.js",
   "types": "dist/main.d.ts",
   "files": [
     "dist"
+  ],
+  "keywords": [
+    "react",
+    "datepicker",
+    "calendar",
+    "date",
+    "react-component"
   ],
   "scripts": {
     "dev": "vite",
@@ -16,8 +30,8 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^16.9.0 || ^17 || ^18",
+    "react-dom": "^16.9.0 || ^17 || ^18"
   },
   "dependencies": {
     "date-fns": "^3.3.1",
@@ -44,8 +58,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.1.0",
     "vite-plugin-dts": "^3.7.2"
-  },
-  "sideEffects": [
-    "**/*.css"
-  ]
+  }
 }
