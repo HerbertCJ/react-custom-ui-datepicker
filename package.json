@@ -1,13 +1,13 @@
 {
-  "name": "react-custom-datepicker",
+  "name": "react-custom-ui-datepicker",
   "private": false,
   "version": "0.0.1",
   "description": "A custom Datepicker library for React",
   "author": "Herbert Jacby",
   "license": "MIT",
-  "homepage": "https://github.com/react-custom-datepicker",
+  "homepage": "https://github.com/HerbertCJ/react-custom-ui-datepicker",
   "bugs": {
-    "url": "https://github.com/react-custom-datepicker/react-custom-datepicker/issues"
+    "url": "https://github.com/HerbertCJ/react-custom-ui-datepicker/issues"
   },
   "type": "module",
   "main": "dist/main.js",
