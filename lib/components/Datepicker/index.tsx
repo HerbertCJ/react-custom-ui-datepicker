@@ -17,6 +17,8 @@ export function Datepicker({
   range = false,
   config,
   date,
+  stringOutput,
+  datepickerRef,
   onChangeDate,
 }: DatepickerInputProps) {
   const initialState = range ? { startDate: new Date(), endDate: null } : new Date();
@@ -63,6 +65,7 @@ export function Datepicker({
     <S.Wrapper disabled={disabled} $config={config} $variant={variant} $error={error} $size={size}>
       <S.InputWrapper>
         <S.Input
+          ref={datepickerRef}
           mask={maskValue}
           guide={false}
           disabled={disabled}
@@ -91,6 +94,7 @@ export function Datepicker({
               dateValue={dateValue}
               range={range}
               date={date}
+              stringOutput={stringOutput}
               onChangeViewMode={setViewMode}
               onChangeActiveDate={setActiveDate}
               onChangeSelectedDate={setSelectedDate}

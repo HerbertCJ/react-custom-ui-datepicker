@@ -13,6 +13,7 @@ export function DatepickerContent({
   variant,
   range,
   date,
+  stringOutput,
   onChangeViewMode,
   onChangeActiveDate,
   onChangeSelectedDate,
@@ -31,13 +32,14 @@ export function DatepickerContent({
           config={config}
           variant={variant}
           range={range}
+          date={date}
+          stringOutput={stringOutput}
           onChangeViewMode={onChangeViewMode}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
           onChangeDateValue={onChangeDateValue}
           onOpen={onOpen}
           onError={onError}
-          date={date}
           onChangeDate={onChangeDate}
         />
       )}

@@ -9,6 +9,7 @@ export function DatepickerAction({
   variant,
   range,
   date,
+  stringOutput,
   onOpen,
   onError,
   onChangeDateValue,
@@ -29,14 +30,23 @@ export function DatepickerAction({
         !isEqual(selectedDate?.endDate, date?.endDate)
       ) {
         if (onChangeDate) {
-          onChangeDate({ startDate: selectedDate.startDate, endDate: selectedDate.endDate });
+          if (stringOutput) {
+            onChangeDate(`${startDate} - ${endDate}`);
+          } else {
+            onChangeDate({ startDate: selectedDate.startDate, endDate: selectedDate.endDate });
+          }
         }
       }
     } else {
-      onChangeDateValue(format(selectedDate, dateFormat));
+      const formatedDate = format(selectedDate, dateFormat);
+      onChangeDateValue(formatedDate);
       if (!isEqual(selectedDate, date)) {
         if (onChangeDate) {
-          onChangeDate(selectedDate);
+          if (stringOutput) {
+            onChangeDate(formatedDate);
+          } else {
+            onChangeDate(selectedDate);
+          }
         }
       }
     }

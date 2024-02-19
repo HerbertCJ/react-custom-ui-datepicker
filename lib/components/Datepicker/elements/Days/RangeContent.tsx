@@ -25,6 +25,7 @@ export function RangeContent({
   config,
   variant,
   hideActions,
+  stringOutput,
   date: stateDate,
   onChangeActiveDate,
   onChangeSelectedDate,
@@ -112,7 +113,11 @@ export function RangeContent({
             !isEqual(updatedDateTime, stateDate?.endDate)
           ) {
             if (onChangeDate) {
-              onChangeDate({ startDate: selectedDate.startDate, endDate: updatedDateTime });
+              if (stringOutput) {
+                onChangeDate(`${startDate} - ${endDate}`);
+              } else {
+                onChangeDate({ startDate: selectedDate.startDate, endDate: updatedDateTime });
+              }
             }
           }
           onOpen(false);

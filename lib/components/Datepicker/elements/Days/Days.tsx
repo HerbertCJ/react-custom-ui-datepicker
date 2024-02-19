@@ -14,6 +14,7 @@ export function Days({
   variant,
   range,
   date,
+  stringOutput,
   onChangeActiveDate,
   onChangeDateValue,
   onChangeSelectedDate,
@@ -37,6 +38,7 @@ export function Days({
           config={config}
           variant={variant}
           date={date}
+          stringOutput={stringOutput}
           hideActions={config?.calendarFormat?.hideActionButtons}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
@@ -52,6 +54,7 @@ export function Days({
           config={config}
           variant={variant}
           date={date}
+          stringOutput={stringOutput}
           hideActions={config?.calendarFormat?.hideActionButtons}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
@@ -69,6 +72,7 @@ export function Days({
           config={config}
           range={range}
           date={date}
+          stringOutput={stringOutput}
           onChangeDateValue={onChangeDateValue}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}

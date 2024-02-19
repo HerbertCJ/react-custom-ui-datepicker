@@ -1,8 +1,8 @@
-import { Header } from './Header';
-import { Content } from './Content';
+import { Header } from "./Header";
+import { Content } from "./Content";
 
-import { DatepickerMonthAndYearProps } from '../../Datepicker.types';
-import * as S from '../../Datepicker.styles';
+import { DatepickerMonthAndYearProps } from "../../Datepicker.types";
+import * as S from "../../Datepicker.styles";
 
 export function Years({
   activeDate,

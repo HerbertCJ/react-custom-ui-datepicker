@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { DatepickerConfigProps } from './DatepickerConfig.types';
 
 export type DatepickerInputProps = {
@@ -8,6 +9,8 @@ export type DatepickerInputProps = {
   range?: boolean;
   config?: DatepickerConfigProps;
   date?: any;
+  datepickerRef?: RefObject<any>;
+  stringOutput?: boolean;
   onChangeDate?: (e: any) => void;
 };
 
@@ -25,6 +28,7 @@ export type DatepickerContentProps = {
   variant: DatepickerInputProps['variant'];
   range?: boolean;
   date?: any;
+  stringOutput?: boolean;
   onChangeDate?: (e: any) => void;
   onChangeViewMode: (viewMode: number) => void;
   onChangeActiveDate: (date: Date) => void;
@@ -54,6 +58,7 @@ export type DatepickerDayContentProps = Pick<
   | 'variant'
   | 'onError'
   | 'onChangeDate'
+  | 'stringOutput'
 > & { hideActions?: boolean };
 
 export type DatepickerMonthAndYearProps = Pick<

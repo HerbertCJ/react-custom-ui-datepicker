@@ -24,6 +24,7 @@ export function Content({
   config,
   variant,
   hideActions,
+  stringOutput,
   date: stateDate,
   onChangeActiveDate,
   onChangeSelectedDate,
@@ -95,10 +96,15 @@ export function Content({
       onChangeSelectedDate(updatedDateTime);
 
       if (hideActions) {
-        onChangeDateValue(format(updatedDateTime, dateFormat));
+        const formatedDate = format(updatedDateTime, dateFormat);
+        onChangeDateValue(formatedDate);
         if (!isEqual(updatedDateTime, stateDate)) {
           if (onChangeDate) {
-            onChangeDate(updatedDateTime);
+            if (stringOutput) {
+              onChangeDate(formatedDate);
+            } else {
+              onChangeDate(updatedDateTime);
+            }
           }
         }
         onOpen(false);
