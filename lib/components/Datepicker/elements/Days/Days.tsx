@@ -1,10 +1,10 @@
-import { Header } from "./Header";
-import { Content } from "./Content";
-import { DatepickerAction } from "../DatepickerAction";
+import { Header } from './Header';
+import { Content } from './Content';
+import { DatepickerAction } from '../DatepickerAction';
 
-import { DatepickerDayProps } from "../../Datepicker.types";
-import { RangeContent } from "./RangeContent";
-import * as S from "../../Datepicker.styles";
+import { DatepickerDayProps } from '../../Datepicker.types';
+import { RangeContent } from './RangeContent';
+import * as S from '../../Datepicker.styles';
 
 export function Days({
   activeDate,
@@ -13,12 +13,14 @@ export function Days({
   config,
   variant,
   range,
+  date,
   onChangeActiveDate,
   onChangeDateValue,
   onChangeSelectedDate,
   onChangeViewMode,
   onOpen,
   onError,
+  onChangeDate,
 }: DatepickerDayProps) {
   return (
     <S.Datepicker>
@@ -34,12 +36,14 @@ export function Days({
           selectedDate={selectedDate}
           config={config}
           variant={variant}
+          date={date}
           hideActions={config?.calendarFormat?.hideActionButtons}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
           onChangeDateValue={onChangeDateValue}
           onOpen={onOpen}
           onError={onError}
+          onChangeDate={onChangeDate}
         />
       ) : (
         <Content
@@ -47,12 +51,14 @@ export function Days({
           selectedDate={selectedDate}
           config={config}
           variant={variant}
+          date={date}
           hideActions={config?.calendarFormat?.hideActionButtons}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
           onChangeDateValue={onChangeDateValue}
           onOpen={onOpen}
           onError={onError}
+          onChangeDate={onChangeDate}
         />
       )}
       {!config?.calendarFormat?.hideActionButtons && (
@@ -62,11 +68,13 @@ export function Days({
           variant={variant}
           config={config}
           range={range}
+          date={date}
           onChangeDateValue={onChangeDateValue}
           onChangeActiveDate={onChangeActiveDate}
           onChangeSelectedDate={onChangeSelectedDate}
           onOpen={onOpen}
           onError={onError}
+          onChangeDate={onChangeDate}
         />
       )}
     </S.Datepicker>

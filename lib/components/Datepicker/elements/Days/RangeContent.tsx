@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState } from 'react';
 import {
   startOfWeek,
   format,
@@ -12,11 +12,12 @@ import {
   setHours,
   setMinutes,
   setSeconds,
-} from "date-fns";
+  isEqual,
+} from 'date-fns';
 
-import { DatepickerDayContentProps } from "../../Datepicker.types";
-import { DatepickerHelper } from "../../Datepicker.helper";
-import * as S from "../../Datepicker.styles";
+import { DatepickerDayContentProps } from '../../Datepicker.types';
+import { DatepickerHelper } from '../../Datepicker.helper';
+import * as S from '../../Datepicker.styles';
 
 export function RangeContent({
   activeDate,
@@ -24,14 +25,16 @@ export function RangeContent({
   config,
   variant,
   hideActions,
+  date: stateDate,
   onChangeActiveDate,
   onChangeSelectedDate,
   onChangeDateValue,
   onOpen,
   onError,
+  onChangeDate,
 }: DatepickerDayContentProps) {
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
-  const dateFormat = config?.dateFormat || "MM/dd/yyyy";
+  const dateFormat = config?.dateFormat || 'MM/dd/yyyy';
 
   const getWeekDaysNames = () => {
     const weekStartDate = startOfWeek(activeDate);
@@ -40,8 +43,8 @@ export function RangeContent({
     for (let day = 0; day < 7; day++) {
       weekDays.push(
         <S.DayOfWeekNames key={day}>
-          {format(addDays(weekStartDate, day), "EEEEEE")}
-        </S.DayOfWeekNames>
+          {format(addDays(weekStartDate, day), 'EEEEEE')}
+        </S.DayOfWeekNames>,
       );
     }
 
@@ -49,17 +52,14 @@ export function RangeContent({
   };
 
   const getDays = () => {
-    const { firstMonthDay, lastMonthDay } =
-      DatepickerHelper.getFirstLastDayOfMonth(activeDate);
+    const { firstMonthDay, lastMonthDay } = DatepickerHelper.getFirstLastDayOfMonth(activeDate);
 
     let currentDate = firstMonthDay;
 
     const allWeeks = [];
 
     while (currentDate <= lastMonthDay) {
-      allWeeks.push(
-        generateDatesForCurrentWeek(currentDate, selectedDate, activeDate)
-      );
+      allWeeks.push(generateDatesForCurrentWeek(currentDate, selectedDate, activeDate));
       currentDate = addDays(currentDate, 7);
     }
 
@@ -72,19 +72,12 @@ export function RangeContent({
     );
   };
 
-  const generateDatesForCurrentWeek = (
-    date: Date,
-    selectedDate: any,
-    activeDate: any
-  ) => {
+  const generateDatesForCurrentWeek = (date: Date, selectedDate: any, activeDate: any) => {
     let currentDate = date;
     const week = [];
 
     const handleDateClick = (clickedDate: Date) => {
-      if (
-        !config?.calendarStyles?.hideInactiveDays &&
-        !isSameMonth(clickedDate, activeDate)
-      ) {
+      if (!config?.calendarStyles?.hideInactiveDays && !isSameMonth(clickedDate, activeDate)) {
         if (isBefore(clickedDate, activeDate)) {
           onChangeActiveDate(subMonths(activeDate, 1));
         } else {
@@ -95,11 +88,8 @@ export function RangeContent({
       const currentTime = new Date();
 
       const updatedDateTime = setSeconds(
-        setMinutes(
-          setHours(clickedDate, currentTime.getHours()),
-          currentTime.getMinutes()
-        ),
-        currentTime.getSeconds()
+        setMinutes(setHours(clickedDate, currentTime.getHours()), currentTime.getMinutes()),
+        currentTime.getSeconds(),
       );
 
       if (
@@ -115,8 +105,16 @@ export function RangeContent({
 
         if (hideActions) {
           const startDate = format(selectedDate.startDate, dateFormat);
-          const endDate = format(updatedDateTime ?? "", dateFormat);
+          const endDate = format(updatedDateTime ?? '', dateFormat);
           onChangeDateValue(`${startDate} - ${endDate}`);
+          if (
+            !isEqual(selectedDate?.startDate, stateDate?.startDate) &&
+            !isEqual(updatedDateTime, stateDate?.endDate)
+          ) {
+            if (onChangeDate) {
+              onChangeDate({ startDate: selectedDate.startDate, endDate: updatedDateTime });
+            }
+          }
           onOpen(false);
           onError(false);
         }
@@ -148,8 +146,8 @@ export function RangeContent({
           $isToday={isSameDay(currentDate, new Date())}
           onClick={() => handleDateClick(cloneDate)}
         >
-          {format(currentDate, "d")}
-        </S.WeekWrapper>
+          {format(currentDate, 'd')}
+        </S.WeekWrapper>,
       );
 
       currentDate = addDays(currentDate, 1);

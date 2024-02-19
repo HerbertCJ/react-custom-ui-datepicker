@@ -1,8 +1,8 @@
-import { DatepickerContentProps } from "../Datepicker.types";
+import { DatepickerContentProps } from '../Datepicker.types';
 
-import { Days } from "./Days";
-import { Months } from "./Months";
-import { Years } from "./Years";
+import { Days } from './Days';
+import { Months } from './Months';
+import { Years } from './Years';
 
 export function DatepickerContent({
   viewMode,
@@ -12,12 +12,14 @@ export function DatepickerContent({
   config,
   variant,
   range,
+  date,
   onChangeViewMode,
   onChangeActiveDate,
   onChangeSelectedDate,
   onChangeDateValue,
   onOpen,
   onError,
+  onChangeDate,
 }: DatepickerContentProps) {
   return (
     <>
@@ -35,6 +37,8 @@ export function DatepickerContent({
           onChangeDateValue={onChangeDateValue}
           onOpen={onOpen}
           onError={onError}
+          date={date}
+          onChangeDate={onChangeDate}
         />
       )}
       {viewMode === 2 && (

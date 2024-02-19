@@ -1,22 +1,23 @@
-import "./App.css";
-import { Datepicker } from "../";
+import './App.css';
+import { Datepicker } from '../';
+import { useState } from 'react';
 
 function App() {
+  const [date, setDate] = useState('');
+
   return (
     <div
       style={{
         margin: 0,
         padding: 0,
-        boxSizing: "border-box",
-        display: "flex",
-        flexDirection: "column",
-        gap: "20px",
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        width: 300,
+        gap: '20px',
       }}
     >
-      <Datepicker
-        config={{ dateFormat: "dd/MM/yyyy HH:mm", locale: "pt-BR" }}
-      />
-      <Datepicker variant="dark" range />
+      <Datepicker date={date} onChangeDate={setDate} range />
     </div>
   );
 }

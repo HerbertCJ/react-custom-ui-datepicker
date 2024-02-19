@@ -6,11 +6,11 @@ import { visualizer } from "rollup-plugin-visualizer";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  define: { "process.env.NODE_ENV": '"production"' },
+  // define: { "process.env.NODE_ENV": '"production"' },
   plugins: [
     react(),
     dts({ include: ["lib"] }),
-    visualizer({ open: true }) as PluginOption,
+    visualizer({ open: false }) as PluginOption,
   ],
   build: {
     copyPublicDir: false,

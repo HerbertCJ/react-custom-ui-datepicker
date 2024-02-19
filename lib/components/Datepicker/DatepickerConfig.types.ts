@@ -89,14 +89,14 @@ type CalendarFormatProps = {
 };
 
 export type Locale =
-  | "de"
-  | "en-AU"
-  | "en-CA"
-  | "en-GB"
-  | "en-US"
-  | "es"
-  | "fr"
-  | "pl"
-  | "pt"
-  | "pt-BR"
-  | "ru";
+  | 'de'
+  | 'en-AU'
+  | 'en-CA'
+  | 'en-GB'
+  | 'en-US'
+  | 'es'
+  | 'fr'
+  | 'pl'
+  | 'pt'
+  | 'pt-BR'
+  | 'ru';

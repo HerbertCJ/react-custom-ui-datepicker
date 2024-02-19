@@ -1,12 +1,14 @@
-import { DatepickerConfigProps } from "./DatepickerConfig.types";
+import { DatepickerConfigProps } from './DatepickerConfig.types';
 
 export type DatepickerInputProps = {
   disabled?: boolean;
-  variant?: "light" | "dark" | "custom";
+  variant?: 'light' | 'dark' | 'custom';
   size?: 'small';
   placeholder?: string;
   range?: boolean;
   config?: DatepickerConfigProps;
+  date?: any;
+  onChangeDate?: (e: any) => void;
 };
 
 export type DateObject = {
@@ -20,8 +22,10 @@ export type DatepickerContentProps = {
   activeDate: Date;
   selectedDate: Date | DateObject;
   config?: DatepickerConfigProps;
-  variant: DatepickerInputProps["variant"];
+  variant: DatepickerInputProps['variant'];
   range?: boolean;
+  date?: any;
+  onChangeDate?: (e: any) => void;
   onChangeViewMode: (viewMode: number) => void;
   onChangeActiveDate: (date: Date) => void;
   onChangeDateValue: (date: string) => void;
@@ -32,51 +36,53 @@ export type DatepickerContentProps = {
 
 export type DatepickerHeaderProps = Pick<
   DatepickerContentProps,
-  "activeDate" | "onChangeActiveDate" | "onChangeViewMode" | "config"
+  'activeDate' | 'onChangeActiveDate' | 'onChangeViewMode' | 'config'
 >;
 
-export type DatepickerDayProps = Omit<DatepickerContentProps, "viewMode">;
+export type DatepickerDayProps = Omit<DatepickerContentProps, 'viewMode'>;
 
 export type DatepickerDayContentProps = Pick<
   DatepickerContentProps,
-  | "activeDate"
-  | "onChangeActiveDate"
-  | "selectedDate"
-  | "onChangeSelectedDate"
-  | "config"
-  | "onChangeDateValue"
-  | "onOpen"
-  | "variant"
-  | "onError"
+  | 'activeDate'
+  | 'onChangeActiveDate'
+  | 'selectedDate'
+  | 'onChangeSelectedDate'
+  | 'config'
+  | 'date'
+  | 'onChangeDateValue'
+  | 'onOpen'
+  | 'variant'
+  | 'onError'
+  | 'onChangeDate'
 > & { hideActions?: boolean };
 
 export type DatepickerMonthAndYearProps = Pick<
   DatepickerContentProps,
-  | "onChangeViewMode"
-  | "activeDate"
-  | "onChangeActiveDate"
-  | "selectedDate"
-  | "onChangeSelectedDate"
-  | "config"
-  | "variant"
-  | "range"
+  | 'onChangeViewMode'
+  | 'activeDate'
+  | 'onChangeActiveDate'
+  | 'selectedDate'
+  | 'onChangeSelectedDate'
+  | 'config'
+  | 'variant'
+  | 'range'
 >;
 
 export type DatepickerYearAndMonthContentProps = Pick<
   DatepickerContentProps,
-  | "activeDate"
-  | "onChangeActiveDate"
-  | "selectedDate"
-  | "onChangeSelectedDate"
-  | "onChangeViewMode"
-  | "config"
-  | "variant"
-  | "range"
+  | 'activeDate'
+  | 'onChangeActiveDate'
+  | 'selectedDate'
+  | 'onChangeSelectedDate'
+  | 'onChangeViewMode'
+  | 'config'
+  | 'variant'
+  | 'range'
 >;
 
 export type DatepickerActionProps = Omit<
   DatepickerContentProps,
-  "viewMode" | "onChangeViewMode" | "activeDate"
+  'viewMode' | 'onChangeViewMode' | 'activeDate'
 >;
 
 export enum ViewModeEnum {

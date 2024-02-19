@@ -1,11 +1,8 @@
-import { getYear, setYear, format } from "date-fns";
+import { getYear, setYear, format } from 'date-fns';
 
-import {
-  DatepickerYearAndMonthContentProps,
-  ViewModeEnum,
-} from "../../Datepicker.types";
-import { DatepickerHelper } from "../../Datepicker.helper";
-import * as S from "../../Datepicker.styles";
+import { DatepickerYearAndMonthContentProps, ViewModeEnum } from '../../Datepicker.types';
+import { DatepickerHelper } from '../../Datepicker.helper';
+import * as S from '../../Datepicker.styles';
 
 export function Content({
   activeDate,
@@ -33,14 +30,12 @@ export function Content({
         $isSelected={year === getYear(selectedDate as Date)}
         onClick={() => {
           onChangeActiveDate(cloneDate);
-          onChangeSelectedDate(
-            range ? { startDate: cloneDate, endDate: cloneDate } : cloneDate
-          );
+          onChangeSelectedDate(range ? { startDate: cloneDate, endDate: cloneDate } : cloneDate);
           onChangeViewMode(ViewModeEnum.MONTHS);
         }}
       >
-        {format(cloneDate, "yyyy")}
-      </S.YearsWrapper>
+        {format(cloneDate, 'yyyy')}
+      </S.YearsWrapper>,
     );
   }
 

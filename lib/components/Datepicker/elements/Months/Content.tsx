@@ -1,10 +1,7 @@
-import { getYear, setMonth, getMonth, format } from "date-fns";
+import { getYear, setMonth, getMonth, format } from 'date-fns';
 
-import {
-  DatepickerYearAndMonthContentProps,
-  ViewModeEnum,
-} from "../../Datepicker.types";
-import * as S from "../../Datepicker.styles";
+import { DatepickerYearAndMonthContentProps, ViewModeEnum } from '../../Datepicker.types';
+import * as S from '../../Datepicker.styles';
 
 export function Content({
   activeDate,
@@ -27,23 +24,18 @@ export function Content({
         key={month}
         $variant={variant}
         $config={config}
-        $isToday={
-          month === getMonth(new Date()) && year === getYear(new Date())
-        }
+        $isToday={month === getMonth(new Date()) && year === getYear(new Date())}
         $isSelected={
-          month === getMonth(selectedDate as Date) &&
-          year === getYear(selectedDate as Date)
+          month === getMonth(selectedDate as Date) && year === getYear(selectedDate as Date)
         }
         onClick={() => {
           onChangeActiveDate(cloneDate);
-          onChangeSelectedDate(
-            range ? { startDate: cloneDate, endDate: cloneDate } : cloneDate
-          );
+          onChangeSelectedDate(range ? { startDate: cloneDate, endDate: cloneDate } : cloneDate);
           onChangeViewMode(ViewModeEnum.DAYS);
         }}
       >
-        <S.Month>{format(cloneDate, "MMM")}</S.Month>
-      </S.YearsWrapper>
+        <S.Month>{format(cloneDate, 'MMM')}</S.Month>
+      </S.YearsWrapper>,
     );
   }
 

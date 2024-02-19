@@ -1,18 +1,18 @@
-import MaskedInput from "react-text-mask";
-import styled, { css } from "styled-components";
-import { DatepickerInputProps } from "./Datepicker.types";
-import theme from "../../styles/theme";
+import MaskedInput from 'react-text-mask';
+import styled, { css } from 'styled-components';
+import { DatepickerInputProps } from './Datepicker.types';
+import theme from '../../styles/theme';
 
-type ConfigProps = DatepickerInputProps["config"];
+type ConfigProps = DatepickerInputProps['config'];
 type WrapperProps = {
   disabled?: boolean;
   $config?: ConfigProps;
-  $variant?: "light" | "dark" | "custom";
-  $size?: "small";
+  $variant?: 'light' | 'dark' | 'custom';
+  $size?: 'small';
   $error: boolean;
 };
 type ButtonWrapperProps = {
-  $variant?: "light" | "dark" | "custom";
+  $variant?: 'light' | 'dark' | 'custom';
   $config?: ConfigProps;
   $isRangeNotFilled?: boolean;
 };
@@ -22,7 +22,7 @@ type WeekWrapperProps = {
   $isToday?: boolean | undefined;
   $isInsideRange?: boolean | undefined;
   $config?: ConfigProps;
-  $variant?: "light" | "dark" | "custom";
+  $variant?: 'light' | 'dark' | 'custom';
 };
 
 const datepickerModifiers = {
@@ -285,12 +285,8 @@ const datepickerModifiers = {
       }
     `,
     custom: (config: ConfigProps) => {
-      const {
-        disabledTextColor,
-        disabledIconColor,
-        disabledBackgroundColor,
-        disabledBorderColor,
-      } = config?.inputStyles?.disabledConfig || {};
+      const { disabledTextColor, disabledIconColor, disabledBackgroundColor, disabledBorderColor } =
+        config?.inputStyles?.disabledConfig || {};
 
       return css`
         ${Input} {
@@ -343,13 +339,8 @@ const datepickerModifiers = {
       }
     `,
     custom: (config: ConfigProps) => {
-      const {
-        errorTextColor,
-        errorBorderColor,
-        errorTextSize,
-        hideError,
-        hideErrorIcon,
-      } = config?.inputStyles?.errorConfig || {};
+      const { errorTextColor, errorBorderColor, errorTextSize, hideError, hideErrorIcon } =
+        config?.inputStyles?.errorConfig || {};
 
       return css`
         ${InputWrapper} {
@@ -359,10 +350,10 @@ const datepickerModifiers = {
         ${Error} {
           color: ${errorTextColor};
           font-size: ${errorTextSize};
-          display: ${hideError ? "none" : "flex"};
+          display: ${hideError ? 'none' : 'flex'};
 
           svg {
-            display: ${hideErrorIcon ? "none" : "flex"};
+            display: ${hideErrorIcon ? 'none' : 'flex'};
             color: ${errorTextColor};
             background-color: transparent;
           }
@@ -377,8 +368,8 @@ const getInactiveDaysStyles = (config: ConfigProps, color: string) => {
   return css`
     color: ${color} !important;
     opacity: ${hideInactiveDays ? 0 : 1};
-    cursor: ${hideInactiveDays ? "default" : "pointer"};
-    pointer-events: ${hideInactiveDays ? "none" : "auto"};
+    cursor: ${hideInactiveDays ? 'default' : 'pointer'};
+    pointer-events: ${hideInactiveDays ? 'none' : 'auto'};
   `;
 };
 
@@ -393,10 +384,7 @@ const datepickerWeekModifiers = {
     custom: (config: ConfigProps) => {
       const { inactiveDaysColor } = config?.calendarStyles || {};
 
-      return getInactiveDaysStyles(
-        config,
-        inactiveDaysColor ?? theme.colors.gray[400]
-      );
+      return getInactiveDaysStyles(config, inactiveDaysColor ?? theme.colors.gray[400]);
     },
   },
   insideRage: {
@@ -445,8 +433,7 @@ const datepickerWeekModifiers = {
       }
     `,
     custom: (config: ConfigProps) => {
-      const { selectedDayColor, selectedDayBackgroundColor } =
-        config?.calendarStyles || {};
+      const { selectedDayColor, selectedDayBackgroundColor } = config?.calendarStyles || {};
 
       return css`
         color: ${selectedDayColor} !important;
@@ -467,8 +454,7 @@ const datepickerWeekModifiers = {
       border: 1.5px solid ${theme.colors.blue[300]};
     `,
     custom: (config: ConfigProps) => {
-      const { todayColor, todayBorderColor, todayBorderRadius } =
-        config?.calendarStyles || {};
+      const { todayColor, todayBorderColor, todayBorderRadius } = config?.calendarStyles || {};
 
       return css`
         border: 1.5px solid ${todayBorderColor};
@@ -625,7 +611,7 @@ const buttonsModifiers = {
 
 export const Datepicker = styled.div`
   position: absolute;
-  left: -0.5px;
+  left: -1px;
   top: 52px;
   z-index: 99;
   background-color: ${theme.colors.white[50]};
@@ -686,15 +672,8 @@ export const WeekContainer = styled.div`
 `;
 
 export const WeekWrapper = styled.div<WeekWrapperProps>`
-  ${({
-    $isInactive,
-    $isToday,
-    $isInsideRange,
-    $config,
-    $variant,
-    $isSelected,
-  }) => {
-    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
+  ${({ $isInactive, $isToday, $isInsideRange, $config, $variant, $isSelected }) => {
+    const variantType: WeekWrapperProps['$variant'] = $variant || 'light';
 
     return css`
       height: 2.25rem;
@@ -706,8 +685,7 @@ export const WeekWrapper = styled.div<WeekWrapperProps>`
       padding: 0.25rem;
 
       ${$isInactive && datepickerWeekModifiers.inactive[variantType]($config)}
-      ${$isInsideRange &&
-      datepickerWeekModifiers.insideRage[variantType]($config)}
+      ${$isInsideRange && datepickerWeekModifiers.insideRage[variantType]($config)}
       ${$isToday && datepickerWeekModifiers.today[variantType]($config)}
       ${$isSelected && datepickerWeekModifiers.selected[variantType]($config)}
     `;
@@ -718,7 +696,7 @@ export const YearsWrapper = styled(WeekWrapper)``;
 
 export const ButtonsWrapper = styled.div<ButtonWrapperProps>`
   ${({ $variant, $config, $isRangeNotFilled }) => {
-    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
+    const variantType: WeekWrapperProps['$variant'] = $variant || 'light';
 
     return css`
       display: flex;
@@ -739,8 +717,7 @@ export const ButtonsWrapper = styled.div<ButtonWrapperProps>`
       }
 
       ${!!$variant && buttonsModifiers.variant[variantType]($config)}
-      ${$isRangeNotFilled &&
-      buttonsModifiers.rangeNotFilled[variantType]($config)}
+      ${$isRangeNotFilled && buttonsModifiers.rangeNotFilled[variantType]($config)}
     `;
   }}
 `;
@@ -799,7 +776,7 @@ export const Input = styled(MaskedInput)`
 
 export const Wrapper = styled.div<WrapperProps>`
   ${({ disabled, $variant, $config, $error, $size }) => {
-    const variantType: WeekWrapperProps["$variant"] = $variant || "light";
+    const variantType: WeekWrapperProps['$variant'] = $variant || 'light';
 
     return css`
       margin: 0;
