@@ -15,6 +15,7 @@ import * as S from "./Datepicker.styles";
 
 export function Datepicker({
   variant = "light",
+  size,
   disabled,
   placeholder,
   range = false,
@@ -70,6 +71,7 @@ export function Datepicker({
       $config={config}
       $variant={variant}
       $error={error}
+      $size={size}
     >
       <S.InputWrapper>
         <S.Input

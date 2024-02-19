@@ -23,7 +23,7 @@ export function Content({
     const cloneDate = setMonth(activeDate, month);
 
     months.push(
-      <S.WeekWrapper
+      <S.YearsWrapper
         key={month}
         $variant={variant}
         $config={config}
@@ -43,7 +43,7 @@ export function Content({
         }}
       >
         <S.Month>{format(cloneDate, "MMM")}</S.Month>
-      </S.WeekWrapper>
+      </S.YearsWrapper>
     );
   }
 

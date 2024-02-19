@@ -3,6 +3,7 @@ import { DatepickerConfigProps } from "./DatepickerConfig.types";
 export type DatepickerInputProps = {
   disabled?: boolean;
   variant?: "light" | "dark" | "custom";
+  size?: 'small';
   placeholder?: string;
   range?: boolean;
   config?: DatepickerConfigProps;

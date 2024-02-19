@@ -1,4 +1,4 @@
-import MaskedInput from 'react-text-mask';
+import MaskedInput from "react-text-mask";
 import styled, { css } from "styled-components";
 import { DatepickerInputProps } from "./Datepicker.types";
 import theme from "../../styles/theme";
@@ -8,6 +8,7 @@ type WrapperProps = {
   disabled?: boolean;
   $config?: ConfigProps;
   $variant?: "light" | "dark" | "custom";
+  $size?: "small";
   $error: boolean;
 };
 type ButtonWrapperProps = {
@@ -212,6 +213,41 @@ const datepickerModifiers = {
         }
       `;
     },
+  },
+  size: {
+    small: () => css`
+      ${DatepickerContent} {
+        gap: 0;
+      }
+
+      ${MonthWrapper}, ${CurrentMonth}, ${IconsWrapper} {
+        font-size: 1rem;
+        gap: 0.75rem;
+
+        svg {
+          font-size: 1rem;
+        }
+      }
+
+      ${DayOfWeekNames} {
+        width: 100%;
+        font-size: 1rem;
+      }
+
+      ${WeekWrapper}, ${ButtonConfirm}, ${ButtonCancel} {
+        width: 85%;
+        height: 85%;
+        font-size: 0.75rem;
+      }
+
+      ${YearsWrapper} {
+        width: 40px;
+      }
+
+      ${ButtonsWrapper} {
+        gap: 0.75rem;
+      }
+    `,
   },
   disabled: {
     light: (_: ConfigProps) => css`
@@ -590,13 +626,13 @@ const buttonsModifiers = {
 export const Datepicker = styled.div`
   position: absolute;
   left: -0.5px;
-  top: 61.5px;
+  top: 52px;
   z-index: 99;
   background-color: ${theme.colors.white[50]};
   box-shadow: ${theme.shadows.element};
   border-radius: ${theme.border.radius};
   padding: ${theme.spacings.small};
-  width: 22.5rem;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   gap: ${theme.spacings.small};
@@ -678,6 +714,8 @@ export const WeekWrapper = styled.div<WeekWrapperProps>`
   }}
 `;
 
+export const YearsWrapper = styled(WeekWrapper)``;
+
 export const ButtonsWrapper = styled.div<ButtonWrapperProps>`
   ${({ $variant, $config, $isRangeNotFilled }) => {
     const variantType: WeekWrapperProps["$variant"] = $variant || "light";
@@ -735,8 +773,6 @@ export const DatepickerContent = styled.div`
 `;
 
 export const InputWrapper = styled.div`
-  width: 20.5rem;
-  height: 3.125rem;
   padding: 0.313rem 0.75rem;
   border: 1.5px solid ${theme.colors.gray[400]};
   border-radius: ${theme.border.radius_small};
@@ -753,12 +789,16 @@ export const Input = styled(MaskedInput)`
   width: 100%;
   height: 100%;
 
+  & {
+    font-size: 1rem;
+  }
+
   font-size: ${theme.font.sizes.body};
   color: ${theme.colors.gray[800]};
 `;
 
 export const Wrapper = styled.div<WrapperProps>`
-  ${({ disabled, $variant, $config, $error }) => {
+  ${({ disabled, $variant, $config, $error, $size }) => {
     const variantType: WeekWrapperProps["$variant"] = $variant || "light";
 
     return css`
@@ -770,6 +810,7 @@ export const Wrapper = styled.div<WrapperProps>`
       gap: 0.25rem;
 
       ${!!$variant && datepickerModifiers.variant[variantType]($config)}
+      ${!!$size && datepickerModifiers.size[$size]()}
       ${$error && datepickerModifiers.error[variantType]($config)}
       ${disabled && datepickerModifiers.disabled[variantType]($config)}
     `;

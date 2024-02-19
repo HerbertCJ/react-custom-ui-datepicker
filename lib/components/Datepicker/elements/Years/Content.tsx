@@ -25,7 +25,7 @@ export function Content({
     const cloneDate = setYear(activeDate, year);
 
     years.push(
-      <S.WeekWrapper
+      <S.YearsWrapper
         key={year}
         $config={config}
         $variant={variant}
@@ -40,7 +40,7 @@ export function Content({
         }}
       >
         {format(cloneDate, "yyyy")}
-      </S.WeekWrapper>
+      </S.YearsWrapper>
     );
   }
 
