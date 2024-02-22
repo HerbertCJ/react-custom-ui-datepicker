@@ -234,10 +234,15 @@ const datepickerModifiers = {
         font-size: 1rem;
       }
 
-      ${WeekWrapper}, ${ButtonConfirm}, ${ButtonCancel} {
+      ${WeekWrapper} {
+        height: 1.5rem;
+        width: 1.5rem;
+        font-size: 1rem;
+      }
+
+      ${ButtonConfirm}, ${ButtonCancel} {
         width: 85%;
-        height: 85%;
-        font-size: 0.75rem;
+        font-size: 1rem;
       }
 
       ${YearsWrapper} {
@@ -609,27 +614,6 @@ const buttonsModifiers = {
   },
 };
 
-export const Datepicker = styled.div`
-  position: absolute;
-  left: -1px;
-  top: 52px;
-  z-index: 99;
-  background-color: ${theme.colors.white[50]};
-  box-shadow: ${theme.shadows.element};
-  border-radius: ${theme.border.radius};
-  padding: ${theme.spacings.small};
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: ${theme.spacings.small};
-
-  svg {
-    font-size: 1.25rem;
-    display: flex;
-    color: ${theme.colors.gray[800]};
-  }
-`;
-
 export const DatepickerHeader = styled.div`
   display: flex;
   align-items: center;
@@ -818,5 +802,65 @@ export const Error = styled.div`
   svg {
     display: flex;
     align-items: center;
+  }
+`;
+
+export const Datepicker = styled.div`
+  position: absolute;
+  left: -1px;
+  top: 52px;
+  z-index: 99;
+  background-color: ${theme.colors.white[50]};
+  box-shadow: ${theme.shadows.element};
+  border-radius: ${theme.border.radius};
+  padding: ${theme.spacings.small};
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: ${theme.spacings.small};
+
+  svg {
+    font-size: 1.25rem;
+    display: flex;
+    color: ${theme.colors.gray[800]};
+  }
+
+  @media screen and (max-width: 400px) {
+    ${DatepickerContent} {
+      gap: 0;
+    }
+
+    ${MonthWrapper}, ${CurrentMonth}, ${IconsWrapper} {
+      font-size: 1rem;
+      gap: 0.75rem;
+
+      svg {
+        font-size: 1rem;
+      }
+    }
+
+    ${DayOfWeekNames} {
+      width: 100%;
+      font-size: 1.1rem;
+    }
+
+    ${WeekWrapper} {
+      height: 1.5rem;
+      width: 1.5rem;
+      font-size: 1rem;
+    }
+
+    ${ButtonConfirm}, ${ButtonCancel} {
+      width: 85%;
+      font-size: 1rem;
+    }
+
+    ${YearsWrapper} {
+      width: 40px;
+    }
+
+    ${ButtonsWrapper} {
+      gap: 0.75rem;
+    }
   }
 `;
