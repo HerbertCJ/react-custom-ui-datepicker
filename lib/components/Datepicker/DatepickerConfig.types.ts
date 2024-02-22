@@ -4,7 +4,6 @@ export type DatepickerConfigProps = {
   inputStyles?: InputStylesConfigProps;
   calendarStyles?: CalendarStylesConfigProps;
   calendarFormat?: CalendarFormatProps;
-  darkMode?: boolean;
 };
 
 type InputStylesConfigProps = {
@@ -85,7 +84,6 @@ type CalendarFormatProps = {
   daysOfWeekFormat?: string;
   daysHeaderMonth?: string;
   daysHeaderYear?: string;
-  monthFormat?: string;
 };
 
 export type Locale =
