@@ -1,7 +1,7 @@
 {
   "name": "react-custom-ui-datepicker",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A custom Datepicker library for React",
   "author": "Herbert Jacby",
   "license": "MIT",
