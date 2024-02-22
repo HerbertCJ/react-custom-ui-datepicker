@@ -5,7 +5,8 @@
   "description": "A custom Datepicker library for React",
   "author": "Herbert Jacby",
   "license": "MIT",
-  "homepage": "https://github.com/HerbertCJ/react-custom-ui-datepicker",
+  "repository": "https://github.com/HerbertCJ/react-custom-ui-datepicker",
+  "homepage": "https://react-custom-ui-datepicker.com",
   "bugs": {
     "url": "https://github.com/HerbertCJ/react-custom-ui-datepicker/issues"
   },
