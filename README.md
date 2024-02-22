@@ -8,7 +8,7 @@ or
 yarn add react-custom-ui-datepicker
 ```
 
-Basic Usage
+## Basic Usage
 
 ```js
 import { useState } from 'react';
