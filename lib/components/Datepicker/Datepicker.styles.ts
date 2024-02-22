@@ -825,7 +825,7 @@ export const Datepicker = styled.div`
     color: ${theme.colors.gray[800]};
   }
 
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 425px) {
     ${DatepickerContent} {
       gap: 0;
     }
