@@ -808,7 +808,7 @@ export const Error = styled.div`
 export const Datepicker = styled.div`
   position: absolute;
   left: -1px;
-  top: 52px;
+  top: 56px;
   z-index: 99;
   background-color: ${theme.colors.white[50]};
   box-shadow: ${theme.shadows.element};

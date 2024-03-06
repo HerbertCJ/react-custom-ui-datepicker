@@ -144,7 +144,7 @@ const theme = {
     },
   },
   shadows: {
-    element: '0px 8px 16px 0px rgba(43, 59, 75, 0.10)',
+    element: '0px 8px 16px 4px rgba(43, 59, 75, 0.10)',
     button: '0px 8px 8px 0px rgba(43, 59, 75, 0.10)',
     card: '0px 8px 12px 0px rgba(5, 37, 62, 0.10)',
     bar: '0px -2px 16px 8px rgba(43, 59, 75, 0.10)',
